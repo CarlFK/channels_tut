@@ -1,6 +1,8 @@
 # chat/consumers.py
 import json
 
+from pprint import pprint
+
 from channels.generic.websocket import AsyncWebsocketConsumer
 
 
@@ -11,6 +13,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         # Join room group
         await self.channel_layer.group_add(self.room_group_name, self.channel_name)
+        # print(self.room_group_name, self.channel_name)
 
         await self.accept()
 
@@ -30,6 +33,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     # Receive message from room group
     async def chat_message(self, event):
+        # pprint(event)
         message = event["message"]
 
         # Send message to WebSocket
